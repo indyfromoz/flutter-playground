@@ -6,7 +6,7 @@ Flutter playground (Code from tutorials, samples and experiments with Flutter &a
 ## Contents 
 
 1. [Flutter.io Getting started Codelab](startup_namer)
-
+2. [Building beautiful UIs with Flutter Codelab](friendlychat)
 
 ## Note
 
