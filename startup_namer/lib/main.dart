@@ -9,6 +9,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) { 
     return new MaterialApp(
       title: 'Startup Name Generator',
+      theme: new ThemeData(
+        primaryColor: Colors.white,
+        dividerColor: Colors.teal
+      ),
       home: new RandomWords()
     );
   }
@@ -25,11 +29,49 @@ class RandomWordsState extends State<RandomWords> {
 
   final _bigFont = const TextStyle(fontSize: 18.0);
   
+  void _pushSaved() {
+    Navigator.of(context).push(
+
+      // Create a new route (page) and push it to the Navigator's stack
+      new MaterialPageRoute(
+        builder: (context) {
+          final tiles = _saved.map(
+            (pair) {
+              return new ListTile(
+                title: new Text(
+                  pair.asPascalCase,
+                  style: _bigFont,
+                ),
+              );
+            },
+          );
+          final divided = ListTile
+            .divideTiles(
+              context: context,
+              tiles: tiles,
+            )
+            .toList();
+
+            // Layout of the new page
+            return new Scaffold(
+              appBar: new AppBar(
+                title: new Text('Saved Suggestions'),
+              ),
+              body: new ListView(children: divided),
+            );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Startup Name Generator'),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved,)
+        ],
       ),
       body: _buildSuggestions(),
     );
